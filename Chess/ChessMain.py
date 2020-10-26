@@ -81,12 +81,14 @@ def main():
                         player_clicks[0], player_clicks[1], gs.board
                     )
                     print(move.get_chess_notation())
-                    if move in valid_moves:
-                        gs.make_move(move)
-                        move_made = True
-
-                    sq_selected = ()  # reset user clocks
-                    player_clicks = []
+                    for i in range(len(valid_moves)):
+                        if move == valid_moves[i]:
+                            gs.make_move(valid_moves[i])
+                            move_made = True
+                            sq_selected = ()  # reset user clocks
+                            player_clicks = []
+                    if not move_made:
+                        player_clicks = [sq_selected]
             # key handler
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z:  # undo when 'z' is pressed
