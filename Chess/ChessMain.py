@@ -65,7 +65,7 @@ def highlight_squares(screen, gs, valid_moves, sq_selected):
 def animate_move(move, screen, board, clock):
     global colors
     delta_row = move.end_row - move.start_row
-    delta_col = move.end_col = move.start_col
+    delta_col = move.end_col - move.start_col
 
     frame_per_square = 10  # frames to move one square
     frame_count = (abs(delta_row) + abs(delta_col)) * frame_per_square
@@ -87,7 +87,7 @@ def animate_move(move, screen, board, clock):
             screen.blit(IMAGES[move.piece_captured], end_square)
         # draw moving piece
         screen.blit(
-            IMAGES[move.piece_moved], p.Rect(c * SQ_SIZE, r * SQ_SIZE, SQ_SIZE, SQ_SIZE)
+            IMAGES[move.piece_moved], p.Rect(int(c) * SQ_SIZE, int(r) * SQ_SIZE, SQ_SIZE, SQ_SIZE)
         )
         p.display.flip()
         clock.tick(360)
@@ -170,7 +170,6 @@ def main():
                     animate = False
 
         if move_made:
-            animate = False  # TODO check animate method
             if animate:
                 animate_move(gs.move_log[-1], screen, gs.board, clock)
             valid_moves = gs.get_valid_moves()
